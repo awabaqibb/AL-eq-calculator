@@ -1,4 +1,3 @@
-// Define an object to map grades to their values
 const gradeValues = {
   "A*": 94,
   A: 85,
@@ -6,13 +5,6 @@ const gradeValues = {
   C: 65,
   D: 55,
   E: 45,
-};
-
-// Define an object to specify custom marks for certain subjects and grades
-const customMarks = {
-  Physics: {
-    "A*": 95,
-  },
 };
 
 // Define an array of subject names
