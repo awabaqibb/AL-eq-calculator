@@ -57,32 +57,28 @@ function calculateGrades() {
   const subjectValues = [];
 
   // Collect the selected grades for all subjects
-  for (let i = 1; i <= subjects.length; i++) {
+  subjects.forEach((subject, index) => {
     const selectedGrade = document.querySelector(
-      `input[name="subject${i}"]:checked`
+      `input[name="subject${index + 1}"]:checked`
     );
     if (!selectedGrade) {
-      alert(`Please select a grade for ${subjects[i - 1]}.`);
+      alert(`Please select a grade for ${subject}.`);
       return; // Exit if any subject is not selected
     }
 
-    const subjectName = subjects[i - 1];
-    const grade = selectedGrade.nextSibling.textContent.trim(); // Get the grade text
-    const customMark =
-      customMarks[subjectName] && customMarks[subjectName][grade];
-    const value =
-      customMark !== undefined ? customMark : parseInt(selectedGrade.value);
-
-    subjectValues.push(value);
-  }
+    const grade = parseInt(selectedGrade.value);
+    subjectValues.push(grade);
+  });
 
   // Get the total marks entered by the user
   const totalMarksInput = document.getElementById("totalMarks");
   const totalMarks = parseInt(totalMarksInput.value) || 0; // Default to 0 if input is empty or not a number
 
-  // Calculate the sum of grades and add totalMarks
-  const totalGrade =
-    subjectValues.reduce((acc, value) => acc + value, 0) + totalMarks;
+  // Calculate the sum of grades
+  const sumOfGrades = subjectValues.reduce((acc, value) => acc + value, 0);
+
+  // Calculate the total grade out of 1100 (800 marks + 300 grades)
+  const totalGrade = sumOfGrades + totalMarks;
 
   // Calculate the percentage
   const percentage = (totalGrade / 1100) * 100;
